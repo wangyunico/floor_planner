@@ -3,6 +3,105 @@ import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 import Stats from 'three/examples/jsm/libs/stats.module'
 import { GUI } from 'dat.gui'     
 import * as CANNON  from 'cannon' // 简单的物理库
+import { Entity ,System,Component,World,Query} from 'ape-ecs'
+
+
+class Position extends Component {
+  
+}
+Position.properties = {
+    x: 0, 
+    y: 0
+}
+
+class Vector extends Component {
+    public get speed(){
+        return Math.sqrt(this.mx**2 + this.my**2);
+    }
+}
+Vector.properties = {
+    mx: 0,
+    my: 0,
+    // speed: 0
+  };
+
+class FrameInfo extends Component {
+
+   update(value: any): void{
+
+     console.log('小王子回家');
+   } 
+}
+FrameInfo.properties = {
+    deltaTime: 0,
+    deltaFrame:0,
+    time: 0
+}
+
+class Gravity extends System {
+    private mainQuery? : Query 
+ 
+  init(...initArgs: any[]): void {
+      this.mainQuery = this.createQuery().fromAll('FrameInfo');
+  }
+  update(tick: number): void {
+      const entities = this.mainQuery!.execute();
+      const frameInfo = this.world.getEntity('frame');
+      for (const entity of entities){
+        const point = entity.getOne('Position');
+        if (! entity.has(Vector)){
+            entity.addComponent({
+                type: 'Vector',
+                mx: 0,
+                my: 0
+            })
+        }
+        const vector = entity.getOne('Vector') as Vector
+        let a = vector.speed
+
+        
+
+      }
+  }
+}
+
+
+
+const world = new World();
+world.registerComponent(Position)
+world.registerComponent(Vector)
+world.registerComponent(FrameInfo)
+world.registerTags('Physics')
+world.registerSystem('frame',Gravity);
+
+const frame = world.createEntity({
+    id: 'frame',
+    c: {
+      time: {
+        type: 'FrameInfo',
+      }
+    }
+  })
+
+  let lastTime = 0;
+  function update(time:number) {
+    debugger;
+    const delta = time - lastTime;
+    time = lastTime;
+    frame.getOne(FrameInfo)?.update({
+        time: time,
+        deltaTime: delta,
+        deltaFrame: delta / 16.667
+    }   
+    )
+    world.runSystems('frame')
+    window.requestAnimationFrame(update);
+  }
+  update(0);
+
+  
+
+
 const scene = new THREE.Scene()
  
 const camera = new THREE.PerspectiveCamera(
@@ -33,13 +132,18 @@ geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
 const material = new THREE.MeshBasicMaterial({color:0xff0000})
 material.side = THREE.DoubleSide
 const cube = new THREE.Mesh(geometry, material)
-scene.add(cube)
+// scene.add(cube)
 
-
-const testGeometry = new THREE.BoxGeometry(1,1,1)
-const testMaterial = new THREE.MeshBasicMaterial({color:0xffff00})
+debugger;
+const testGeometry =  new THREE.SphereGeometry( 1, 8, 8 )
+const testMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, visible: true } )
 const mesh2 = new THREE.Mesh(testGeometry,testMaterial)
+
+const box = new THREE.Box3();
+const selectionBox = new THREE.Box3Helper( box );
+box.setFromObject(mesh2,true)
 scene.add(mesh2)
+scene.add(selectionBox)
 
 const shape = new THREE.Shape()
 
