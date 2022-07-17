@@ -1,4 +1,4 @@
-import Component from "ape-ecs/src/component";
+import {Component} from "ape-ecs";
 import { Texture } from "three";
 import { Color } from "three/src/math/Color";
 

@@ -1,6 +1,5 @@
 import * as THREE from 'three'
 import { Component } from 'ape-ecs'
-import { type } from 'os'
 import { Vector3 } from 'three/src/math/Vector3'
 import { Euler, Quaternion } from 'three';
 
@@ -21,6 +20,8 @@ private parent?: Transform
 public postion?: Position
 public scale?: Scale  
 public rotation?:Rotation
+
 }
 
 
+export {Position,Rotation,Scale, Transform}

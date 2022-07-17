@@ -97,7 +97,7 @@ const frame = world.createEntity({
     world.runSystems('frame')
     window.requestAnimationFrame(update);
   }
-  update(0);
+   update(0);
 
   
 
