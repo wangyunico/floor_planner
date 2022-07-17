@@ -4,7 +4,7 @@ import Stats from 'three/examples/jsm/libs/stats.module'
 import { GUI } from 'dat.gui'     
 import * as CANNON  from 'cannon' // 简单的物理库
 import { Entity ,System,Component,World,Query} from 'ape-ecs'
-
+import {FloorWorld} from '../misc/floorWorld'
 
 class Position extends Component {
   
@@ -67,7 +67,7 @@ class Gravity extends System {
 
 
 
-const world = new World();
+const world = new FloorWorld();
 world.registerComponent(Position)
 world.registerComponent(Vector)
 world.registerComponent(FrameInfo)
