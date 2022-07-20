@@ -21,6 +21,8 @@ public postion?: Position
 public scale?: Scale  
 public rotation?:Rotation
 
+
+
 }
 
 

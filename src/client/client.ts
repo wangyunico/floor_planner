@@ -3,8 +3,13 @@ import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 import Stats from 'three/examples/jsm/libs/stats.module'
 import { GUI } from 'dat.gui'     
 import * as CANNON  from 'cannon' // 简单的物理库
-import { Entity ,System,Component,World,Query} from 'ape-ecs'
+import { Entity ,System,Component,World,Query,EntityRef} from 'ape-ecs'
 import {FloorWorld} from '../misc/floorWorld'
+import {FloorEntity} from '../entities/floorEntity'
+import {ThreeCompnent}from '../components/threeComponent'
+import { Scene } from 'three'
+
+ new ThreeCompnent<THREE.Scene>()
 
 class Position extends Component {
   
@@ -22,6 +27,7 @@ class Vector extends Component {
 Vector.properties = {
     mx: 0,
     my: 0,
+    testRef: EntityRef
     // speed: 0
   };
 
@@ -46,7 +52,7 @@ class Gravity extends System {
   }
   update(tick: number): void {
       const entities = this.mainQuery!.execute();
-      const frameInfo = this.world.getEntity('frame');
+      const frameInfo = this.world.getEntity('frame') as FloorEntity;
       for (const entity of entities){
         const point = entity.getOne('Position');
         if (! entity.has(Vector)){
@@ -56,6 +62,8 @@ class Gravity extends System {
                 my: 0
             })
         }
+        frameInfo.getObject3DComponent(Scene);
+        
         const vector = entity.getOne('Vector') as Vector
         let a = vector.speed
 
@@ -187,3 +195,9 @@ function render() {
 }
  
 animate()
+
+
+function initialize(): void {
+  const world = new FloorWorld()
+  
+}
