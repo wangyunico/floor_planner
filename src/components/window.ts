@@ -1,6 +1,6 @@
-import { BaseObject } from "./baseObject";
+import { BuildObject } from "./buildObject";
 
-class Window extends BaseObject {
+class Window extends BuildObject {
 
 }
 

@@ -93,7 +93,7 @@ const frame = world.createEntity({
 
   let lastTime = 0;
   function update(time:number) {
-    debugger;
+    // debugger;
     const delta = time - lastTime;
     time = lastTime;
     frame.getOne(FrameInfo)?.update({
@@ -142,7 +142,7 @@ material.side = THREE.DoubleSide
 const cube = new THREE.Mesh(geometry, material)
 // scene.add(cube)
 
-debugger;
+// debugger;
 const testGeometry =  new THREE.SphereGeometry( 1, 8, 8 )
 const testMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, visible: true } )
 const mesh2 = new THREE.Mesh(testGeometry,testMaterial)
@@ -201,3 +201,33 @@ function initialize(): void {
   const world = new FloorWorld()
   
 }
+
+
+
+function toString(a: string){
+
+    return function<T>(C:new()=>T){
+          C.prototype.test = a;
+        debugger
+    }
+}
+
+@toString("qiaohongm")
+class User {
+    username: string = ""
+    id: number = 2
+    token: string = ""
+    avatar: string = ""
+    role: string = ""
+}
+
+const testUser = new User();
+
+console.log(2);
+
+
+
+
+
+
+

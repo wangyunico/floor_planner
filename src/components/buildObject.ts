@@ -5,10 +5,10 @@ import { MeshFilter } from "./MeshFilter";
  */
 
 // todo 构成 2D shape 的函数
-class BaseObject extends MeshFilter {
+class BuildObject extends MeshFilter {
     public group?:THREE.Group
 
 }
 
 
-export{BaseObject}
+export{BuildObject}
