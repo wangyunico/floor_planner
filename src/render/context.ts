@@ -1,5 +1,6 @@
 
 
-class Context {
+export class Context {
     
 }
+
