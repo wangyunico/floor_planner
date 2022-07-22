@@ -9,6 +9,7 @@ import {FloorEntity} from '../entities/floorEntity'
 import {ThreeCompnent}from '../components/threeComponent'
 import { Scene, Vector2 } from 'three'
 import * as Graphics from '../graphcs/basicGraphics'
+import {Window} from '../components/window'
  new ThreeCompnent<THREE.Scene>()
 
 class Position extends Component {
@@ -62,8 +63,7 @@ class Gravity extends System {
                 my: 0
             })
         }
-        frameInfo.getObject3DComponent(Scene);
-        
+        debugger; 
         const vector = entity.getOne('Vector') as Vector
         let a = vector.speed
 
@@ -156,31 +156,32 @@ box.setFromObject(mesh2,true)
 
 
 
-let size = new THREE.Vector2(0.3,1)
-let headLength= 0.18
+// let size = new THREE.Vector2(0.3,1)
+// let headLength= 0.18
 
 
 // // Create the final object to add to the scene
-const background = Graphics.fillRectangle({x:0,y:0},new THREE.Vector2(0.9, -size.height),0xffffff);
- const upRect = Graphics.gridrectangle({x:0.3,y:0},new THREE.Vector2(size.width,-headLength),0x000000);
- const downRect = Graphics.gridrectangle({x:0.3,y:headLength-size.height},new THREE.Vector2(size.width,-headLength),0x000000);
- const path = new THREE.Path();
- const startY = -headLength;
- const endY =  headLength-size.height;
- [0,0.1,0.2,0.3].forEach((val)=>{
-    path.moveTo(val+0.3,startY);
-    path.lineTo(val+0.3,endY);
- })
- const geomery = new THREE.BufferGeometry().setFromPoints(path.getPoints());
- const material2 = new THREE.LineBasicMaterial({color: 0x000000});
- const middle = new THREE.LineSegments(geomery,material2)
+// const background = Graphics.fillRectangle({x:0,y:0},new THREE.Vector2(0.9, -size.height),0xffffff);
+//  const upRect = Graphics.gridrectangle({x:0.3,y:0},new THREE.Vector2(size.width,-headLength),0x000000);
+//  const downRect = Graphics.gridrectangle({x:0.3,y:headLength-size.height},new THREE.Vector2(size.width,-headLength),0x000000);
+//  const path = new THREE.Path();
+//  const startY = -headLength;
+//  const endY =  headLength-size.height;
+//  [0,0.1,0.2,0.3].forEach((val)=>{
+//     path.moveTo(val+0.3,startY);
+//     path.lineTo(val+0.3,endY);
+//  })
+//  const geomery = new THREE.BufferGeometry().setFromPoints(path.getPoints());
+//  const material2 = new THREE.LineBasicMaterial({color: 0x000000});
+//  const middle = new THREE.LineSegments(geomery,material2)
  
 
  const test = new THREE.Group();
- test.add(background)
- test.add(upRect)
- test.add(downRect)
- test.add(middle)
+
+ const obj = new Window()
+ obj.update2DGraph(test, 1.8, 8)
+
+
 // test.scale.set(0.1,1,1)
  scene.add(test)
 
