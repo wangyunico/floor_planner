@@ -1,3 +1,5 @@
+import {FloorRender} from "../interfaces/floorRender"
+import{Context2D} from "../render/context2D"
 
 class Render2D extends Comment implements FloorRender {
 

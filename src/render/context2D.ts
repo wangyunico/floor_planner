@@ -1,4 +1,4 @@
 import {Context} from "./context"
-class Context2D extends Context {
+export class Context2D extends Context {
 
 }
