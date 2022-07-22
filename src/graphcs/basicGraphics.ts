@@ -14,26 +14,20 @@ export interface Origin {
 
 
 export function gridrectangle(origin:Origin, size:Size, colorHex:number):Object3D {
-    const path = new THREE.Path();
-    path.moveTo(origin.x,origin.y);
-    path.lineTo(origin.x+size.width, origin.y);
-    path.lineTo(origin.x+size.width,origin.y+size.height);
-    path.lineTo(origin.x,origin.y+size.height);
-    path.closePath();
-    const geomery = new THREE.BufferGeometry().setFromPoints(path.getPoints());
-    const material = new THREE.LineBasicMaterial({color: colorHex});
-    return new THREE.Line(geomery,material);
+
+    const geomery = new THREE.PlaneGeometry(size.width,size.height);
+    const edges = new THREE.EdgesGeometry(geomery);
+    const obj = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({color: colorHex}));
+     obj.translateX(origin.x + size.width/2)  //中心点在中心
+     obj.translateY(origin.y + size.height/2) //中心点在中心
+    return obj;
 
 }
 
 export function fillRectangle(origin:Origin,size:Size,colorHex:number):Object3D{
-    const path = new THREE.Shape();
-    path.moveTo(origin.x,origin.y);
-    path.lineTo(origin.x+size.width, origin.y);
-    path.lineTo(origin.x+size.width,origin.y+size.height);
-    path.lineTo(origin.x,origin.y+size.height);
-    path.closePath();
-    const geomery = new THREE.ShapeGeometry( path );;
-    const material = new THREE.MeshBasicMaterial( { color: colorHex } );
-    return new THREE.Mesh(geomery,material); 
+     const geomery = new THREE.PlaneGeometry(size.width,size.height);
+     const obj = new THREE.Mesh(geomery, new THREE.MeshBasicMaterial({color:colorHex}))
+     obj.translateX(origin.x + size.width/2)  //中心点在中心
+     obj.translateY(origin.y + size.height/2) //中心点在中心
+    return  obj
 }

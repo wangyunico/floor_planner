@@ -10,6 +10,10 @@ import {ThreeCompnent}from '../components/threeComponent'
 import { Scene, Vector2 } from 'three'
 import * as Graphics from '../graphcs/basicGraphics'
 import {Window} from '../components/window'
+import {Line2} from "three/examples/jsm/lines/Line2"
+import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
+import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
+
  new ThreeCompnent<THREE.Scene>()
 
 class Position extends Component {
@@ -155,34 +159,38 @@ box.setFromObject(mesh2,true)
 
 
 
+const ge = new THREE.PlaneGeometry( 1, 1 );
+const edges = new THREE.EdgesGeometry(ge)
+const line2 = new THREE.LineSegments(edges,new THREE.LineBasicMaterial( { color: 0xffff00 } ))
 
-// let size = new THREE.Vector2(0.3,1)
-// let headLength= 0.18
-
-
-// // Create the final object to add to the scene
-// const background = Graphics.fillRectangle({x:0,y:0},new THREE.Vector2(0.9, -size.height),0xffffff);
-//  const upRect = Graphics.gridrectangle({x:0.3,y:0},new THREE.Vector2(size.width,-headLength),0x000000);
-//  const downRect = Graphics.gridrectangle({x:0.3,y:headLength-size.height},new THREE.Vector2(size.width,-headLength),0x000000);
-//  const path = new THREE.Path();
-//  const startY = -headLength;
-//  const endY =  headLength-size.height;
-//  [0,0.1,0.2,0.3].forEach((val)=>{
-//     path.moveTo(val+0.3,startY);
-//     path.lineTo(val+0.3,endY);
-//  })
-//  const geomery = new THREE.BufferGeometry().setFromPoints(path.getPoints());
-//  const material2 = new THREE.LineBasicMaterial({color: 0x000000});
-//  const middle = new THREE.LineSegments(geomery,material2)
- 
 
  const test = new THREE.Group();
 
  const obj = new Window()
- obj.update2DGraph(test, 1.8, 8)
+ obj.update2DGraph(test, 0.9, 8)
+var geometry1 = new LineGeometry();
+// 顶点坐标构成的数组pointArr
+var pointArr = [-100,0,0,
+  -100,100,0,
+  0,0,0,
+  100,100,0,
+  100,0,0,]
+// 几何体传入顶点坐标
+geometry1.setPositions( pointArr);
+// 自定义的材质
+var material1  = new LineMaterial( {
+  color: 0xdd2222,
+  // 线宽度
+  linewidth: 20,
+} );
+// 把渲染窗口尺寸分辨率传值给材质LineMaterial的resolution属性
+// resolution属性值会在着色器代码中参与计算
+material1.resolution.set(window.innerWidth,window.innerHeight);
+var line = new Line2(geometry1, material1);
+
+line2.translateX(1)
 
 
-// test.scale.set(0.1,1,1)
  scene.add(test)
 
 const shape = new THREE.Shape()
