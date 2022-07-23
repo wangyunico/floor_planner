@@ -13,6 +13,7 @@ export interface Origin {
 }
 
 
+
 export function gridrectangle(origin:Origin, size:Size, colorHex:number):Object3D {
 
     const geomery = new THREE.PlaneGeometry(size.width,size.height);

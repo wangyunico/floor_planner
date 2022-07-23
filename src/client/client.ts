@@ -169,8 +169,8 @@ const line2 = new THREE.LineSegments(edges,new THREE.LineBasicMaterial( { color:
 
  const test = new THREE.Group();
 
- const obj = new Door()
- obj.update2DGraph(test,1,3,Pivot.End, Toward.Outer)
+ const obj = new Window()
+ obj.update2DGraph(test,1,new Vector2(0,0),new Vector2(2,2))
 var geometry1 = new LineGeometry();
 // 顶点坐标构成的数组pointArr
 var pointArr = [-100,0,0,

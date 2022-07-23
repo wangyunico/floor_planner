@@ -2,11 +2,12 @@ import { BuildObject } from "./buildObject";
 import * as THREE from 'three'
 import * as Graphics from '../graphcs/basicGraphics'
 import { ThreeCompnent } from "./threeComponent";
-
+import {FPosition} from "../helpers/metrics"
 // type Type<T>
 class Window extends BuildObject {
    public thickness:number = 0; //初始化的时候都给0
-   public width:number = 0; // 初始化的时候都给0
+   public start: FPosition = new FPosition(0,0) ; //todo: 要修改开始位置 表示距离墙面起始点的offset // 表示距离墙面终点的offeset
+   public end: FPosition = new FPosition(0,0); //结束位置
    public fillColorHex:number = 0xffffff;
    public lineColorHex:number = 0x000000;
    
@@ -16,9 +17,10 @@ class Window extends BuildObject {
 
      update(value: any){
 
-        if (this.thickness!=value.thickness || this.width != value.width){
+        if (this.thickness!=value.thickness || this.start != value.start || this.end != value.end){
             this.thickness = value.thickness
-            this.width = value.width
+            this.start = value.start
+            this.end = value.end
             if (this.group == null){
                 this.group = new THREE.Group() 
             }else{
@@ -27,7 +29,7 @@ class Window extends BuildObject {
             }
             //1. 厚度相当于宽度
             //2. 宽度相当绘制的高度
-            this.update2DGraph(this.group,this.thickness,this.width);
+            this.update2DGraph(this.group,this.thickness,this.start,this.end);
             //todo: 3D的Graph的内容
         }
 
@@ -35,12 +37,14 @@ class Window extends BuildObject {
      }
 
 
-    update2DGraph(group2D:THREE.Group, width:number, height:number){
-       const scale = width/0.9 
+    update2DGraph(group2D:THREE.Group, thickness:number, start:FPosition, end:FPosition){
+        debugger;
+       const scale = thickness/0.9 
+       const windowWidth =  start.distanceTo(end)
        //以0.9为基准画墙
-       let size = new THREE.Vector2(0.3,height)
+       let size = new THREE.Vector2(0.3,windowWidth)
        let headLength= 0.6*scale*size.width
-       const bgGraphic =  Graphics.fillRectangle({x:0,y:0},new THREE.Vector2(0.9, height),this.fillColorHex);
+       const bgGraphic =  Graphics.fillRectangle({x:0,y:0},new THREE.Vector2(0.9, windowWidth),this.fillColorHex);
        const upRect = Graphics.gridrectangle({x:0.3,y:0},new THREE.Vector2(size.width,headLength),this.lineColorHex);
        const downRect = Graphics.gridrectangle({x:0.3,y:size.height-headLength},new THREE.Vector2(size.width,headLength),this.lineColorHex);
        const path = new THREE.Path();
