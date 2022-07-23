@@ -10,6 +10,8 @@ import {ThreeCompnent}from '../components/threeComponent'
 import { Scene, Vector2 } from 'three'
 import * as Graphics from '../graphcs/basicGraphics'
 import {Window} from '../components/window'
+import {Door, Pivot, Toward} from '../components/door'
+
 import {Line2} from "three/examples/jsm/lines/Line2"
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
@@ -115,6 +117,7 @@ const frame = world.createEntity({
 
 
 const scene = new THREE.Scene()
+scene.background = new THREE.Color(0xcccccc);
  
 const camera = new THREE.PerspectiveCamera(
     75,
@@ -166,8 +169,8 @@ const line2 = new THREE.LineSegments(edges,new THREE.LineBasicMaterial( { color:
 
  const test = new THREE.Group();
 
- const obj = new Window()
- obj.update2DGraph(test, 0.9, 8)
+ const obj = new Door()
+ obj.update2DGraph(test,1,3,Pivot.End, Toward.Outer)
 var geometry1 = new LineGeometry();
 // 顶点坐标构成的数组pointArr
 var pointArr = [-100,0,0,
