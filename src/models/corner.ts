@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { Wall } from '../entities/entityCreator'
+import { Wall } from './wall'
 import * as Graphics from '../graphcs/basicGraphics'
 import {BaseModel} from './basemodel'
 import {Position} from '../helpers/metrics'
@@ -17,6 +17,7 @@ export class Corner implements BaseModel<Corner> {
     this._positon = pos;
    }
    addStartWall(wall:Wall){
+    // 判断wall的Direction
     this.startWalls?.push(wall);
     //todo 增加其他的操作
    }

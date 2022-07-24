@@ -15,7 +15,9 @@ import {Door, Pivot, Toward} from '../components/door'
 import {Line2} from "three/examples/jsm/lines/Line2"
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
-import {calcNormalDirection, NormalDirection} from '../helpers/metrics';
+import {calcNormal, NormalType} from '../helpers/metrics';
+import {Wall} from '../models/wall'
+import {Corner} from '../models/corner'
  new ThreeCompnent<THREE.Scene>()
 
 class Position extends Component {
@@ -161,8 +163,10 @@ box.setFromObject(mesh2,true)
  let a = new THREE.Vector2(0,0)
  let b = new THREE.Vector2(1,1)
 
- let ret1 = calcNormalDirection(a,b,NormalDirection.positive);
- let ret2 = calcNormalDirection(a,b,NormalDirection.negative);
+ let ret1 = calcNormal(a,b,NormalType.up);
+ let ret2 = calcNormal(a,b,NormalType.down);
+  (window as any).Vector2 = THREE.Vector2;
+
 
 debugger
 
@@ -172,9 +176,11 @@ const line2 = new THREE.LineSegments(edges,new THREE.LineBasicMaterial( { color:
 
 
  const test = new THREE.Group();
+ const startCorner = new Corner(new Vector2(1,1));
+ const endCorner = new Corner(new Vector2(10,0));
+ const wall = new Wall(startCorner,endCorner,2);
+ wall.generateGraphicsObject(test);
 
- const obj = new Window()
- obj.update2DGraph(test,1,new Vector2(0,0),new Vector2(2,2))
 var geometry1 = new LineGeometry();
 // 顶点坐标构成的数组pointArr
 var pointArr = [-100,0,0,
@@ -194,8 +200,6 @@ var material1  = new LineMaterial( {
 // resolution属性值会在着色器代码中参与计算
 material1.resolution.set(window.innerWidth,window.innerHeight);
 var line = new Line2(geometry1, material1);
-
-line2.translateX(1)
 
 
  scene.add(test)
