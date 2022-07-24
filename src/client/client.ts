@@ -15,7 +15,7 @@ import {Door, Pivot, Toward} from '../components/door'
 import {Line2} from "three/examples/jsm/lines/Line2"
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
-
+import {calcNormalDirection, NormalDirection} from '../helpers/metrics';
  new ThreeCompnent<THREE.Scene>()
 
 class Position extends Component {
@@ -157,10 +157,14 @@ const mesh2 = new THREE.Mesh(testGeometry,testMaterial)
 const box = new THREE.Box3();
 const selectionBox = new THREE.Box3Helper( box );
 box.setFromObject(mesh2,true)
-// scene.add(mesh2)
-// scene.add(selectionBox)
 
+ let a = new THREE.Vector2(0,0)
+ let b = new THREE.Vector2(1,1)
 
+ let ret1 = calcNormalDirection(a,b,NormalDirection.positive);
+ let ret2 = calcNormalDirection(a,b,NormalDirection.negative);
+
+debugger
 
 const ge = new THREE.PlaneGeometry( 1, 1 );
 const edges = new THREE.EdgesGeometry(ge)

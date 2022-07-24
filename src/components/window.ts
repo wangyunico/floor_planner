@@ -2,12 +2,12 @@ import { BuildObject } from "./buildObject";
 import * as THREE from 'three'
 import * as Graphics from '../graphcs/basicGraphics'
 import { ThreeCompnent } from "./threeComponent";
-import {FPosition} from "../helpers/metrics"
-// type Type<T>
+import {Position} from "../helpers/metrics"
+// 要改成entity 使用component会有问题
 class Window extends BuildObject {
    public thickness:number = 0; //初始化的时候都给0
-   public start: FPosition = new FPosition(0,0) ; //todo: 要修改开始位置 表示距离墙面起始点的offset // 表示距离墙面终点的offeset
-   public end: FPosition = new FPosition(0,0); //结束位置
+   public start: Position = new Position(0,0) ; //todo: 要修改开始位置 表示距离墙面起始点的offset // 表示距离墙面终点的offeset
+   public end: Position = new Position(0,0); //结束位置
    public fillColorHex:number = 0xffffff;
    public lineColorHex:number = 0x000000;
    
@@ -37,7 +37,7 @@ class Window extends BuildObject {
      }
 
 
-    update2DGraph(group2D:THREE.Group, thickness:number, start:FPosition, end:FPosition){
+    update2DGraph(group2D:THREE.Group, thickness:number, start:Position, end:Position){
         debugger;
        const scale = thickness/0.9 
        const windowWidth =  start.distanceTo(end)
