@@ -29,6 +29,7 @@ export class Wall implements BaseModel<Wall> {
     finishAdded(){
      this.start.addStartWall(this);
      this.end.addEndWall(this);
+     
     }
    
 

@@ -18,6 +18,7 @@ import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import {calcNormal, NormalType} from '../helpers/metrics';
 import {Wall} from '../models/wall'
 import {Corner} from '../models/corner'
+
  new ThreeCompnent<THREE.Scene>()
 
 class Position extends Component {
@@ -166,7 +167,7 @@ box.setFromObject(mesh2,true)
  let ret1 = calcNormal(a,b,NormalType.up);
  let ret2 = calcNormal(a,b,NormalType.down);
   (window as any).Vector2 = THREE.Vector2;
-
+  (window as any).MathUtils = THREE.MathUtils;
 
 debugger
 
