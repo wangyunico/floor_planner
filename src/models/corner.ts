@@ -38,6 +38,12 @@ export class Corner implements BaseModel<Corner> {
     
    }
 
+   addEndWall(wall:Wall){
+    this.endWalls?.push([0,wall]);
+    //todo 增加其他操作
+   }
+
+
 
    // 逆时针方向，inner 在 outer的逆时针方向最近的
   private resetBoundary(outer:Wall, inner:Wall){
@@ -83,10 +89,6 @@ export class Corner implements BaseModel<Corner> {
    }
 
    
-   addEndWall(wall:Wall){
-    this.endWalls?.push([0,wall]);
-    //todo 增加其他操作
-   }
 
    generateGraphicsObject(group:THREE.Group, ...args:any[]) {
      //通过点精灵表示
