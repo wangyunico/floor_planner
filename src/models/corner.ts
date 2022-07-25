@@ -40,13 +40,11 @@ export class Corner implements BaseModel<Corner> {
     const deg = wall.direction.angle();
     const warppedWall = {deg:deg,wall:wall,kind: Kind.start};
     this.insertAndSort(warppedWall);
-    debugger;
     let len = this.wallCollection.length;
     const index = this.wallCollection.indexOf(warppedWall); //一定存在
      if(len > 1){
         const frontWrappedWall = this.wallCollection[(index-1+len)%len];
         const backWrappedWall = this.wallCollection[(index+1+len)%len];
-        debugger;
          this.resetBoundary(frontWrappedWall, warppedWall);
          this.resetBoundary(warppedWall, backWrappedWall);
      }
@@ -56,7 +54,16 @@ export class Corner implements BaseModel<Corner> {
    addEndWall(wall:Wall){
      this.endWalls.push(wall);
      const deg = wall.direction.clone().negate().angle();
-     this.insertAndSort({deg:deg, wall:wall, kind: Kind.end});
+     const warppedWall = {deg:deg,wall:wall,kind: Kind.end};
+     this.insertAndSort(warppedWall);
+     let len = this.wallCollection.length;
+    const index = this.wallCollection.indexOf(warppedWall); //一定存在
+     if(len > 1){
+        const frontWrappedWall = this.wallCollection[(index-1+len)%len];
+        const backWrappedWall = this.wallCollection[(index+1+len)%len];
+         this.resetBoundary(frontWrappedWall, warppedWall);
+         this.resetBoundary(warppedWall, backWrappedWall);
+     } 
 
    }
 
@@ -66,9 +73,10 @@ export class Corner implements BaseModel<Corner> {
    }
 
 
+
    // 逆时针方向，inner 在 outer的逆时针方向最近的
   private resetBoundary(outer:WrappedWall, inner:WrappedWall){
-       debugger;
+      debugger;
        const outVector =  new THREE.Vector2();
        const innerVector = new THREE.Vector2();
        const commbineVector = new THREE.Vector2();
@@ -84,12 +92,12 @@ export class Corner implements BaseModel<Corner> {
        if(outer.kind == Kind.start){
         outer.wall.outEdge.startPosition = commbineVector;
        }else{
-         outer.wall.outEdge.endPosition = commbineVector;
+          outer.wall.innerEdge.endPosition = commbineVector;
        }
-       if (outer.kind == Kind.start){
+       if (inner.kind == Kind.start){
         inner.wall.innerEdge.startPosition = commbineVector;
        }else{
-         inner.wall.innerEdge.endPosition = commbineVector;
+         inner.wall.outEdge.endPosition = commbineVector;
        }
        
   }

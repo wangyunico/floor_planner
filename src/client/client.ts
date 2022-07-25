@@ -169,7 +169,7 @@ box.setFromObject(mesh2,true)
   (window as any).Vector2 = THREE.Vector2;
   (window as any).MathUtils = THREE.MathUtils;
 
-debugger
+
 
 const ge = new THREE.PlaneGeometry( 1, 1 );
 const edges = new THREE.EdgesGeometry(ge)
@@ -184,15 +184,16 @@ const line2 = new THREE.LineSegments(edges,new THREE.LineBasicMaterial( { color:
  const wall1 = new Wall(startCorner,endCorner1,2);
  wall1.color = 0xffff00;
  wall1.finishAdded();
- const wall2 = new Wall(startCorner,endCorner2,2);
+   const wall2 = new Wall(endCorner2,startCorner,2);
+//  const wall2 = new Wall(startCorner,endCorner2,2);
  wall2.color = 0x00ffff;
  wall2.finishAdded();
-  const wall3 = new Wall(startCorner, endCorner3,2);
-  wall3.color = 0x000000;
-  //  wall3.finishAdded();
+//  const wall3 = new Wall(startCorner, endCorner3,2);
+//  wall3.color = 0x000000;
+//  wall3.finishAdded();
   wall1.generateGraphicsObject(test);
    wall2.generateGraphicsObject(test);
-  // wall3.generateGraphicsObject(test);
+  //  wall3.generateGraphicsObject(test);
 
 var geometry1 = new LineGeometry();
 // 顶点坐标构成的数组pointArr
