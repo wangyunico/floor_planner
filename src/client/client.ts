@@ -179,20 +179,20 @@ const line2 = new THREE.LineSegments(edges,new THREE.LineBasicMaterial( { color:
  const test = new THREE.Group();
  const startCorner = new Corner(new Vector2(0,0));
  const endCorner1 = new Corner(new Vector2(5,0));
-//  const endCorner2  = new Corner(new Vector2(5,0));
+ const endCorner2  = new Corner(new Vector2(-5,1));
   const endCorner3 = new Corner(new Vector2(0,5));
- const wall1 = new Wall(startCorner,endCorner1,0.3);
+ const wall1 = new Wall(startCorner,endCorner1,2);
  wall1.color = 0xffff00;
  wall1.finishAdded();
-//  const wall2 = new Wall(startCorner,endCorner2,0.1);
-//  wall2.color = 0x00ffff;
-//  wall2.finishAdded();
+ const wall2 = new Wall(startCorner,endCorner2,2);
+ wall2.color = 0x00ffff;
+ wall2.finishAdded();
   const wall3 = new Wall(startCorner, endCorner3,2);
   wall3.color = 0x000000;
-  wall3.finishAdded();
+  //  wall3.finishAdded();
   wall1.generateGraphicsObject(test);
-  // wall2.generateGraphicsObject(test);
-  wall3.generateGraphicsObject(test);
+   wall2.generateGraphicsObject(test);
+  // wall3.generateGraphicsObject(test);
 
 var geometry1 = new LineGeometry();
 // 顶点坐标构成的数组pointArr
