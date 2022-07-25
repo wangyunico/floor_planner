@@ -44,13 +44,10 @@ export class Corner implements BaseModel<Corner> {
        const innerVector = new THREE.Vector2();
        const commbineVector = new THREE.Vector2();
        const li_normal = calcNormalFromDirection(inner.direction, NormalType.down);
+       debugger;
        let deg = li_normal.dot(outer.direction);
-         if( deg < 0.001 && deg > 0){
-             deg = 0.001;
-         }
-         if(deg<0 &&deg > -0.001){
-             deg = -0.001;
-         }
+       if(deg >= -0.001 && deg<=0.001) //防止角度太大的时候，就不修改
+        return;
         debugger;
        outVector.addVectors(this.positon, outer.direction.clone().multiplyScalar(inner.thickness/(2*deg)));
        innerVector.addVectors(this.positon, inner.direction.clone().multiplyScalar(outer.thickness/(2*deg)));

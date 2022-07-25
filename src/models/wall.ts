@@ -35,7 +35,6 @@ export class Wall implements BaseModel<Wall> {
 
     generateGraphicsObject(scene:THREE.Group) {
      // conner是中心点，基于中心点向两侧扩展
-     debugger;
       const shape = new THREE.Shape();
        shape.moveTo(this.outEdge.startPosition.x, this.outEdge.startPosition.y);
        shape.lineTo(this.outEdge.endPosition.x, this.outEdge.endPosition.y);

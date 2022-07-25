@@ -179,7 +179,7 @@ const line2 = new THREE.LineSegments(edges,new THREE.LineBasicMaterial( { color:
  const test = new THREE.Group();
  const startCorner = new Corner(new Vector2(0,0));
  const endCorner1 = new Corner(new Vector2(5,0));
- const endCorner2  = new Corner(new Vector2(-0.5,5));
+ const endCorner2  = new Corner(new Vector2(-5,0));
  const wall1 = new Wall(startCorner,endCorner1,0.5);
  wall1.color = 0xffff00;
  wall1.finishAdded();
