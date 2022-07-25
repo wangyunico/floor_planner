@@ -177,10 +177,17 @@ const line2 = new THREE.LineSegments(edges,new THREE.LineBasicMaterial( { color:
 
 
  const test = new THREE.Group();
- const startCorner = new Corner(new Vector2(1,1));
- const endCorner = new Corner(new Vector2(10,0));
- const wall = new Wall(startCorner,endCorner,2);
- wall.generateGraphicsObject(test);
+ const startCorner = new Corner(new Vector2(0,0));
+ const endCorner1 = new Corner(new Vector2(5,0));
+ const endCorner2  = new Corner(new Vector2(-0.5,5));
+ const wall1 = new Wall(startCorner,endCorner1,0.5);
+ wall1.color = 0xffff00;
+ wall1.finishAdded();
+ const wall2 = new Wall(startCorner,endCorner2,2);
+ wall2.color = 0x00ffff;
+ wall2.finishAdded();
+  wall1.generateGraphicsObject(test);
+  wall2.generateGraphicsObject(test);
 
 var geometry1 = new LineGeometry();
 // 顶点坐标构成的数组pointArr

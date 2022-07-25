@@ -16,8 +16,8 @@ export class Edge implements BaseModel<Edge> {
         this.owner = wall;
         this.normalType = normalType; //法线类型
         let normal = calcNormalFromDirection(wall.direction, normalType);
-        this.startPosition.addVectors(wall.start.positon, normal.multiplyScalar(wall.thickness/2));
-        this.endPosition.addVectors(wall.end.positon, normal.multiplyScalar(wall.thickness/2));
+        this.startPosition.addVectors(wall.start.positon, normal.clone().multiplyScalar(wall.thickness/2));
+        this.endPosition.addVectors(wall.end.positon, normal.clone().multiplyScalar(wall.thickness/2));
 
     } 
 

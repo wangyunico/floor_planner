@@ -14,6 +14,7 @@ export class Wall implements BaseModel<Wall> {
     public outEdge: Edge; //外墙:法线类型 up
     public innerEdge: Edge; //内向 法线类型 down
     public thickness: number;
+    public color?:number;
 
     constructor(start:Corner,end:Corner, thickness:number){
       this.isSelected = false;
@@ -29,12 +30,12 @@ export class Wall implements BaseModel<Wall> {
     finishAdded(){
      this.start.addStartWall(this);
      this.end.addEndWall(this);
-     
     }
    
 
     generateGraphicsObject(scene:THREE.Group) {
      // conner是中心点，基于中心点向两侧扩展
+     debugger;
       const shape = new THREE.Shape();
        shape.moveTo(this.outEdge.startPosition.x, this.outEdge.startPosition.y);
        shape.lineTo(this.outEdge.endPosition.x, this.outEdge.endPosition.y);
@@ -42,7 +43,7 @@ export class Wall implements BaseModel<Wall> {
        shape.lineTo(this.innerEdge.startPosition.x,this.innerEdge.startPosition.y);
       shape.closePath();
       const geometry = new THREE.ShapeGeometry( shape);
-      const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+      const material = new THREE.MeshBasicMaterial( { color: this.color??0x000000} );
       const mesh = new THREE.Mesh( geometry, material );
       scene.add(mesh);
     }

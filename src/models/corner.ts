@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { Wall } from './wall'
 import * as Graphics from '../graphcs/basicGraphics'
 import {BaseModel} from './basemodel'
-import {Direction, Position} from '../helpers/metrics'
+import {Direction, Position,calcNormalFromDirection, NormalType} from '../helpers/metrics'
 
 type WallContainer = [number,Wall][];
 export class Corner implements BaseModel<Corner> {
@@ -23,12 +23,44 @@ export class Corner implements BaseModel<Corner> {
 
    addStartWall(wall:Wall){
     // 获取到相邻位置的wall,修改wall edge的start值
+    const len = this.startWalls.length;
     const deg = wall.direction.angle();
      const index = this.findIndex(this.startWalls,deg);
-     //todo 增加其他的操作 找到前后的 wall 修改值
+     //todo 增加其他的操作 找到前后的 wall 修改当前wall的edge的值
+     if(len > 0){
+        const frontWall = this.startWalls[index][1];
+        const backWall = this.startWalls[index%len][1];
+         this.resetBoundary(frontWall, wall);
+         this.resetBoundary(wall, backWall);
+     }
     this.startWalls.splice(index,0 ,[deg,wall]);
     
    }
+
+
+   // 逆时针方向，inner 在 outer的逆时针方向最近的
+  private resetBoundary(outer:Wall, inner:Wall){
+       const outVector =  new THREE.Vector2();
+       const innerVector = new THREE.Vector2();
+       const commbineVector = new THREE.Vector2();
+       const li_normal = calcNormalFromDirection(inner.direction, NormalType.down);
+       let deg = li_normal.dot(outer.direction);
+         if( deg < 0.001 && deg > 0){
+             deg = 0.001;
+         }
+         if(deg<0 &&deg > -0.001){
+             deg = -0.001;
+         }
+        debugger;
+       outVector.addVectors(this.positon, outer.direction.clone().multiplyScalar(inner.thickness/(2*deg)));
+       innerVector.addVectors(this.positon, inner.direction.clone().multiplyScalar(outer.thickness/(2*deg)));
+       commbineVector.addVectors(outVector,innerVector);
+       outer.outEdge.startPosition = commbineVector;
+       inner.innerEdge.startPosition = commbineVector;
+  }
+
+
+
 
    private findIndex(arr:WallContainer ,deg: number):number{
     let index = 0;
