@@ -122,13 +122,21 @@ const frame = world.createEntity({
 const scene = new THREE.Scene()
 scene.background = new THREE.Color(0xcccccc);
  
-const camera = new THREE.PerspectiveCamera(
-    75,
-    window.innerWidth / window.innerHeight,
+ const camera = new THREE.OrthographicCamera(
+    window.innerWidth/-200,
+    window.innerWidth/200,
+    window.innerHeight/200,
+    window.innerHeight/-200,
+    0,
     0.1,
-    1000
-)
-camera.position.z = 2
+  )
+// const camera = new THREE.PerspectiveCamera(
+//     75,
+//     window.innerWidth / window.innerHeight,
+//     0.1,
+//     1000
+// )
+// camera.position.z = 2
  
 const renderer = new THREE.WebGLRenderer({antialias:true})
 renderer.setSize(window.innerWidth, window.innerHeight)
@@ -184,16 +192,15 @@ const line2 = new THREE.LineSegments(edges,new THREE.LineBasicMaterial( { color:
  const wall1 = new Wall(startCorner,endCorner1,2);
  wall1.color = 0xffff00;
  wall1.finishAdded();
-   const wall2 = new Wall(endCorner2,startCorner,2);
-//  const wall2 = new Wall(startCorner,endCorner2,2);
+ const wall2 = new Wall(endCorner2,startCorner,2);
  wall2.color = 0x00ffff;
  wall2.finishAdded();
-//  const wall3 = new Wall(startCorner, endCorner3,2);
-//  wall3.color = 0x000000;
-//  wall3.finishAdded();
-  wall1.generateGraphicsObject(test);
-   wall2.generateGraphicsObject(test);
-  //  wall3.generateGraphicsObject(test);
+ const wall3 = new Wall(startCorner, endCorner3,2);
+ wall3.color = 0x000000;
+ wall3.finishAdded();
+ wall1.generateGraphicsObject(test);
+ wall2.generateGraphicsObject(test);
+ wall3.generateGraphicsObject(test);
 
 var geometry1 = new LineGeometry();
 // 顶点坐标构成的数组pointArr
@@ -225,10 +232,11 @@ const plane = new THREE.Plane( new THREE.Vector3( 1, 1, 0.2 ), 3 );
 const helper = new THREE.PlaneHelper( plane, 1, 0xffff00 );
 scene.add( helper );
 
-THREE.GridHelper
+var gridHelper = new THREE.GridHelper( 100, 30, 0x2C2C2C, 0x888888 );
+scene.add(gridHelper);
 window.addEventListener('resize', onWindowResize, false)
 function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight
+  //  camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix()
     renderer.setSize(window.innerWidth, window.innerHeight)
     render()
