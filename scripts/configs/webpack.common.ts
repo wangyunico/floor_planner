@@ -2,7 +2,7 @@ import { resolve } from "path";
 import { Configuration } from "webpack";
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import WebpackBar from 'webpackbar';
-// import FriendlyErrorsWebpackPlugin from '@nuxt/friendly-errors-webpack-plugin';
+const FriendlyErrorsWebpackPlugin = require('@nuxt/friendly-errors-webpack-plugin');
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 import { loader as MiniCssExtractLoader } from 'mini-css-extract-plugin';
@@ -47,7 +47,13 @@ const commonConfig: Configuration = {
             name:'floor-design',
             color: '#61dafb',
         }),
-        // new FriendlyErrorsWebpackPlugin(),
+         new FriendlyErrorsWebpackPlugin({
+            compilationSuccessInfo: {
+                messages: ['You application is running here http://localhost:3000'],
+                notes: ['Floor Planner 编译成功']
+              },
+         }   
+         ),
         new CleanWebpackPlugin(),
         new CopyPlugin({
             patterns: [
