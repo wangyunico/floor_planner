@@ -49,19 +49,19 @@ const commonConfig: Configuration = {
         }),
         // new FriendlyErrorsWebpackPlugin(),
         new CleanWebpackPlugin(),
-        new CopyPlugin({
-            patterns: [
-                {
-                 from: '*',
-                 context: resolve(PROJECT_ROOT, './public'),
-                 to: resolve(PROJECT_ROOT,'./dist'),
-                 toType: 'dir',
-                 globOptions: {
-                    ignore: ['index.html']
-                 },
-                },
-            ],
-        }),
+        // new CopyPlugin({
+        //     patterns: [
+        //         {
+        //          from: '*',
+        //          context: resolve(PROJECT_ROOT, './public'),
+        //          to: resolve(PROJECT_ROOT,'./dist'),
+        //          toType: 'dir',
+        //          globOptions: {
+        //             ignore: ['index.html']
+        //          },
+        //         },
+        //     ],
+        // }),
         new HtmlWebpackPlugin()
     ],
     module: {
