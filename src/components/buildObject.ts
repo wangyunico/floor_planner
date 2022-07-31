@@ -1,4 +1,4 @@
-import { MeshFilter } from "./MeshFilter";
+import { MeshFilter } from "./meshFilter";
 
 /**
  * window 和 door 还有其他3D的物品相当于组件，添加到entity中

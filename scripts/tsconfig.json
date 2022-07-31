@@ -3,15 +3,17 @@
         "moduleResolution": "node",
         "strict": true,
         "target": "es2015",
+        "module": "commonjs",
         "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
         "esModuleInterop": true,
         "resolveJsonModule": true
     },
-    "include": ["**/*.ts"],
-    "exclude": [
-        "**/*.test.tsx",
-        "node_modules",
-        "build",
-        "temp"
-      ]
+    // "include": ["**/*.ts"],
+    // "exclude": [
+    //     "**/*.test.tsx",
+    //     "node_modules",
+    //     "build",
+    //     "temp"
+    //   ]
 }
