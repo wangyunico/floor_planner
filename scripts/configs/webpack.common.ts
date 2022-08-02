@@ -9,6 +9,7 @@ import { loader as MiniCssExtractLoader } from 'mini-css-extract-plugin';
 
 
 import { __DEV__,  PROJECT_NAME, PROJECT_ROOT, HMR_PATH } from "../utils/constants";
+import { template } from "@babel/core";
 
 function getCssLoaders(importLoaders: number) {
     return [
@@ -63,12 +64,15 @@ const commonConfig: Configuration = {
                  to: resolve(PROJECT_ROOT,'./dist'),
                  toType: 'dir',
                  globOptions: {
-                    ignore: ['index.html']
+                    ignore: ["**/index.html"]
                  },
                 },
             ],
         }),
-        new HtmlWebpackPlugin()
+        new HtmlWebpackPlugin({
+            template: resolve(PROJECT_ROOT,'./public/index.html')    
+        })
+           
     ],
     module: {
         rules:[  
