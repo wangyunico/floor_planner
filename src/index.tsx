@@ -1,11 +1,13 @@
-import React, { FC } from 'react'
-import { Button } from 'antd'
-import './styles/App.css'
+import React from "react";
+import * as ReactDOM from 'react-dom/client';
+import { BrowserRouter } from "react-router-dom";
 
-const App: FC = () => (
-    <div className="App">
-      <Button type="primary">Button</Button>
-    </div>
-  );
-  
-  export default App;
+
+import App from "./client/App";
+
+const container  = document.querySelector('#root')
+const root = ReactDOM.createRoot(container)
+root.render(
+<BrowserRouter>
+    <App />
+</BrowserRouter>)
