@@ -121,7 +121,7 @@ const frame = world.createEntity({
 
 const scene = new THREE.Scene()
 scene.background = new THREE.Color(0xcccccc);
- 
+
  const camera = new THREE.OrthographicCamera(
     window.innerWidth/-200,
     window.innerWidth/200,
